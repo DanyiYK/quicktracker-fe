@@ -1,13 +1,21 @@
 import { jd } from "../jd.config";
 
+const defaultLinks = [
+    {
+        content: 'Track a package',
+        href: 'Track',
+        icon: 'Box'
+    }
+]
+
 export function Header(data={}) {
-    const { links=[] } = data;
+    const { links=[...defaultLinks] } = data;
 
     if(localStorage.getItem('token')){
         links.push({
-            content: "Dashboard",
-            href: "/dashboard",
-            icon: "Table"
+            content: 'Dashboard',
+            href: '/dashboard',
+            icon: 'Table'
         })
     } else {
         links.push({
