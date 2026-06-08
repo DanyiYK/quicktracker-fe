@@ -1,13 +1,10 @@
 import { createSignal, when } from "@just-dom/signals";
 import { jd } from "../jd.config";
 import { navigate } from "@just-dom/router";
+import { VITE_API_URL } from "../env";
 
-export function LoginForm() {
+export function LoginPage() {
     let loginError;
-
-    if(localStorage.getItem('token')){
-        navigate('/dashboard', { replace: true });
-    }
 
     const [loading, setLoading] = createSignal(false);
     const [ authError, setAuthError ] = createSignal(false);
@@ -23,7 +20,7 @@ export function LoginForm() {
         setAuthError(false);
         setLoading(true);
 
-        fetch('http://127.0.0.1:5001/api/auth/login', {
+        fetch(`${VITE_API_URL}/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -41,9 +38,13 @@ export function LoginForm() {
 
             res.json().then(jsonData=>{
                 localStorage.setItem('token', jsonData.token);
-                navigate('/dashboard', { replace: true });
+                navigate('/dashboard/deliveries/', { replace: true });
             })
         })
+    }
+
+    if(localStorage.getItem('token')){
+        document.location.href = '/dashboard/deliveries/';
     }
 
     return jd.div({ className: 'flex justify-center items-center h-full' }, [
