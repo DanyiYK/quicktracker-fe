@@ -3,7 +3,7 @@ import { jd } from "../jd.config";
 const defaultLinks = [
     {
         content: 'Track a package',
-        href: 'Track',
+        href: '/track',
         icon: 'Box'
     }
 ]
