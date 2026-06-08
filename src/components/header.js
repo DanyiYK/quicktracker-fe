@@ -14,7 +14,7 @@ export function Header(data={}) {
     if(localStorage.getItem('token')){
         links.push({
             content: 'Dashboard',
-            href: '/dashboard',
+            href: '/dashboard/deliveries',
             icon: 'Table'
         })
     } else {
