@@ -1,7 +1,6 @@
-import { Header } from "../components/header";
 import { jd } from "../jd.config";
 
-export function NotFound() {
+export function NotFoundPage() {
     return jd.div({ className: 'h-full bg-transparent flex justify-center items-center flex-col gap-4' }, [
         jd.lucide('FileWarning', { size: 64, className: 'text-error' }),
         jd.h1({ className: 'text-4xl font-bold mb-2' }, ['404 - Not found']),
