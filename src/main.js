@@ -9,29 +9,8 @@ import { DashboardLayout } from "./layouts/dashboard-layout.js";
 
 const routes = defineRoutes([
     { path: '/login', element: () => { return BaseLayout({ content: LoginPage() }) } },
-    {
-        path: '/dashboard/:section', element: () => {
-            return DashboardLayout({
-                options: [
-                    {
-                        text: 'Deliveries',
-                        icon: 'Box',
-                        href: '/dashboard/deliveries'
-                    },
-                    {
-                        text: 'Couriers',
-                        icon: 'Truck',
-                        href: '/dashboard/couriers'
-                    },
-                    {
-                        text: 'Statistics',
-                        icon: 'GitGraph',
-                        href: '/dashboard/statistics'
-                    },
-                ]
-            })
-        }
-    },
+    { path: '/dashboard/:section', element: DashboardLayout },
+    { path: '/dashboard/:section/:id', element: DashboardLayout },
     { path: '*', element: () => { return BaseLayout({ content: NotFoundPage() }) } }
 ]);
 
