@@ -9,7 +9,7 @@ const defaultLinks = [
 ]
 
 export function Header(data={}) {
-    const { links=[...defaultLinks] } = data;
+    const { links=[...defaultLinks], useDrawerButton=false } = data;
 
     if(localStorage.getItem('token')){
         links.push({
@@ -27,7 +27,7 @@ export function Header(data={}) {
 
     return jd.header({ className: 'px-8 py-4 flex justify-between items-center bg-base-300 shadow-sm shadow-base-300' }, [
         jd.div({ className: 'flex justify-center items-center gap-4' }, [
-        jd.button({ className: 'text-base-content hover:opacity-75 duration-150 lg:hidden', onclick: ()=>{document.querySelector('#drawer').checked=true} }, [jd.lucide('Menu', { size: 28 })]),
+        useDrawerButton?jd.button({ className: 'text-base-content hover:opacity-75 duration-150 lg:hidden', onclick: ()=>{document.querySelector('#drawer').checked=true} }, [jd.lucide('Menu', { size: 28 })]):null,
             jd.div({ className: 'text-2xl font-bold text-base-content' }, [
             jd.span({ className: 'text-primary'}, ["Q-"]),
             "Delivery"
