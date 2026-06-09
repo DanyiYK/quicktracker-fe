@@ -1,7 +1,7 @@
 import { Header } from '../components/header';
 import { VITE_API_URL } from '../env';
 import { jd } from '../jd.config';
-import { CourierPage } from '../pages/courier-page';
+import { CourierPage } from '../pages/create-courier-page';
 
 const RegisteredSections = {
     courier: {
@@ -53,10 +53,10 @@ export function DashboardLayout({ params }) {
         }),
         jd.div({ className: 'drawer lg:drawer-open' }, [
             jd.input({ id: 'drawer', type: 'checkbox', className: 'drawer-toggle hidden' }),
-            jd.div({ className: 'drawer-content' }, [
+            jd.div({ className: 'drawer-content pt-18' }, [
                 selectedSection.element(params)
             ]),
-            jd.div({ className: 'drawer-side' }, [
+            jd.div({ className: 'drawer-side pt-18' }, [
                 jd.label({
                     htmlFor: 'drawer',
                     ariaLabel: 'close sidebar',
