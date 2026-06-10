@@ -3,7 +3,7 @@ import { VITE_API_URL } from "../env";
 import { CourierForm } from "../forms/CourierForm";
 import { jd } from "../jd.config";
 
-export function CourierPage() {
+export function CreateCourierPage({ params }) {
     const [ serverError, setServerError ] = createSignal('');
     const [ loading, setLoading ] = createSignal(false);
 
@@ -30,9 +30,12 @@ export function CourierPage() {
                         setLoading(false);
 
                         const json = await res.json();
+                        
+                        if(!res.ok){ setServerError(json.error || 'Unknown error'); return; }
+                        
+                        document.location.href = `/dashboard/courier/${json.id}/`
 
-                        if(!res.ok){ setServerError(json.error); console.log(serverError()) }
-                    }).catch(err=>{
+                        setServerError('Connection error');
                         setLoading(false);
                     });
                 },

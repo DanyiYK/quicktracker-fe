@@ -1,21 +1,26 @@
 import { Header } from '../components/header';
 import { VITE_API_URL } from '../env';
 import { jd } from '../jd.config';
-import { CourierPage } from '../pages/create-courier-page';
+import { CourierPage } from '../pages/courier-page';
+import { CreateCourierPage } from '../pages/create-courier-page';
 
-const RegisteredSections = {
-    courier: {
-        element: CourierPage,
+const RegisteredSections = [
+    {
+        name: 'courier',
+        element: CreateCourierPage,
         requires_id: false // Whether the id param should be specified
     },
-    notfound: {
-        element: ()=>{return '404 - Section not found :('},
-        requires_id: false
-    },
-    invalid_data: {
-        element: ()=>{return 'Invalid url format!'},
-        requires_id: false
-    },
+    {
+        name: 'courier',
+        element: CourierPage,
+        requires_id: true
+    }
+]
+
+const NotFoundSection = {
+    name: 'notfound',
+    element: ()=>{return '404 - Section not found :('},
+    requires_id: false
 }
 
 const DashboardOptions = [
@@ -41,11 +46,7 @@ export function DashboardLayout({ params }) {
 
     checkAuth();
 
-    const selectedSection = RegisteredSections[section] || RegisteredSections['notfound'];
-
-    if(!id && selectedSection.requiresId===true){
-        selectedSection = RegisteredSections['invalid_data'];
-    }
+    const selectedSection = getSection(params);
 
     return jd.fragment([
         Header({
@@ -90,4 +91,17 @@ function checkAuth() {
             document.location.href = '/login';
         })
     }
+}
+
+function getSection(params) {
+    const { section, id } = params;
+    const hasId = Boolean(id);
+
+    for(const value of RegisteredSections) {
+        if(value.name===section && value.requires_id===hasId) {
+            return value;
+        }
+    }
+
+    return NotFoundSection;
 }

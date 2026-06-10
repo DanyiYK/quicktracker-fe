@@ -2,10 +2,33 @@ import { createSignal, effect, when } from "@just-dom/signals";
 import { jd } from "../jd.config";
 
 export function CourierForm(props = {}) {
-    const { onsubmit, title = '', submit_text = 'Submit', data={}, loadingSignal, errorSignal } = props;
+    const { onsubmit, title = '', submit_text = 'Submit', data={}, loadingSignal, errorSignal, dataSignal } = props;
     const { name='', surname='', fiscal_code='', email='', phone_number='' } = data;
 
-    return jd.form({ className: 'flex flex-col items-center gap-1', onsubmit: onsubmit }, [
+    console.log('creating form')
+
+    return jd.form({
+        className: 'flex flex-col items-center gap-1',
+        onsubmit: onsubmit,
+        ref: (el)=>{
+            console.log(dataSignal)
+            if(!dataSignal) { return console.log('data signal is null') }
+            
+            effect(el, ()=>{
+                const formData = dataSignal()
+                console.log('updated obj')
+                let obj;
+
+                Object.keys(formData).forEach((key)=>{
+                    obj = el.querySelector(`#${key}`)
+
+                    if(obj){
+                        obj.value = formData[key];
+                    }
+                })
+            })
+        }
+    }, [
         jd.h2({ className: 'text-2xl font-bold text-base-content' }, [title]),
         jd.hr({ className: 'w-full text-base-100' }),
         jd.fieldset({ className: 'fieldset w-full' }, [
@@ -17,7 +40,7 @@ export function CourierForm(props = {}) {
                     value: name,
                     name: 'name',
                     id: 'name',
-                    placeholder: 'Mario', // TODO: find a working patter for emails
+                    placeholder: 'Mario',
                     oninput: (e) => {
                         if (e.target.value.length < 3) {
                             e.target.setCustomValidity('Name is too short!')
@@ -38,7 +61,7 @@ export function CourierForm(props = {}) {
                     className: 'input w-full validator',
                     name: 'surname',
                     id: 'surname',
-                    placeholder: 'Rossi', // TODO: find a working patter for emails
+                    placeholder: 'Rossi',
                     oninput: (e) => {
                         if (e.target.value.length < 3) {
                             e.target.setCustomValidity('Surname is too short!')
@@ -74,7 +97,7 @@ export function CourierForm(props = {}) {
                     className: 'input w-full validator',
                     name: 'email',
                     id: 'email',
-                    placeholder: 'courier@example.com', // TODO: find a working patter for emails
+                    placeholder: 'courier@example.com',
                     oninput: (e) => {
                         if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(e.target.value)) {
                             e.target.setCustomValidity('Invalid fiscal code')
@@ -114,7 +137,7 @@ export function CourierForm(props = {}) {
         jd.button({ className: 'btn duration-150 hover:btn-primary', type: 'submit' }, [
             when(loadingSignal, {
                 then: () => jd.lucide('Loader2', { className: 'size-4 animate-spin' }),
-                else: () => jd.lucide('LogIn', { className: 'size-4' }),
+                else: () => jd.lucide('ArrowRight', { className: 'size-4' }),
             }),
             submit_text
         ]),

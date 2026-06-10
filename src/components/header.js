@@ -37,7 +37,7 @@ export function Header(data={}) {
         jd.div({ className: 'flex gap-2' }, links.map(value=>{
             const { icon, href="", content="Link" } = value;
 
-            return jd.a({ href: href, className: 'bg-transparent hover:bg-base-100 text-base-content px-3 py-2 duration-150 flex items-center gap-2' }, [icon?jd.lucide(icon, { size: 24, className: 'font-black' }):null, jd.p({ className: 'opacity-75' }, [content])])
+            return jd.a({ href: href, className: 'bg-transparent hover:bg-base-100 text-base-content px-3 py-2 duration-150 flex justify-center items-center gap-2' }, [icon?jd.lucide(icon, { size: 24, className: 'font-black' }):null, jd.p({ className: 'opacity-75' }, [jd.p({className: 'not-lg:hidden'}, [content])])])
         }))
     ])
     ])  
