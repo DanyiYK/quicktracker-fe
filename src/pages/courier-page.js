@@ -49,6 +49,8 @@ export function CourierPage(params) {
                         const json = await res.json();
 
                         if(!res.ok){ return setServerError(json.error||'Unknown error') }
+
+                        document.location.href = '/dashboard/couriers/'
                     }).catch(err=>{
                         alert(err);
                     });

@@ -2,6 +2,7 @@ import { Header } from '../components/header';
 import { VITE_API_URL } from '../env';
 import { jd } from '../jd.config';
 import { CourierPage } from '../pages/courier-page';
+import { CouriersPage } from '../pages/couriers-page';
 import { CreateCourierPage } from '../pages/create-courier-page';
 
 const RegisteredSections = [
@@ -14,6 +15,11 @@ const RegisteredSections = [
         name: 'courier',
         element: CourierPage,
         requires_id: true
+    },
+    {
+        name: 'couriers',
+        element: CouriersPage,
+        requires_id: false
     }
 ]
 
