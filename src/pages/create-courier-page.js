@@ -1,6 +1,6 @@
 import { createSignal } from "@just-dom/signals";
 import { VITE_API_URL } from "../env";
-import { CourierForm } from "../forms/CourierForm";
+import { CourierForm } from "../forms/courier-form";
 import { jd } from "../jd.config";
 
 export function CreateCourierPage({ params }) {

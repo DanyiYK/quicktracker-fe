@@ -4,6 +4,7 @@ import { jd } from '../jd.config';
 import { CourierPage } from '../pages/courier-page';
 import { CouriersPage } from '../pages/couriers-page';
 import { CreateCourierPage } from '../pages/create-courier-page';
+import { DeliveryPage } from '../pages/delivery-page';
 
 const RegisteredSections = [
     {
@@ -19,6 +20,11 @@ const RegisteredSections = [
     {
         name: 'couriers',
         element: CouriersPage,
+        requires_id: false
+    },
+    {
+        name: 'delivery',
+        element: DeliveryPage,
         requires_id: false
     }
 ]
@@ -48,8 +54,6 @@ const DashboardOptions = [
 ]
 
 export function DashboardLayout({ params }) {
-    const { section, id } = params;
-
     checkAuth();
 
     const selectedSection = getSection(params);
