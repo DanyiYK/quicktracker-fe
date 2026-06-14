@@ -9,9 +9,11 @@ import { jd } from "../jd.config";
 }*/
 
 export function DeliveryForm() {
-    return jd.form({ className: 'flex flex-row gap-8' }, [
-        jd.div({ className: 'w-full' }, [
+    return jd.form({ className: 'flex w-4xl mx-auto flex-col gap-8' }, [
+        jd.div({ className: 'w-full flex flex-col gap-2' }, [
             jd.h1({ className: 'text-xl font-bold' }, ['Package details']),
+
+            jd.hr(),
 
             jd.fieldset({ className: 'fieldset w-full' }, [
                 jd.legend({ className: 'fieldset-legend' }, ['Box content']),
@@ -27,17 +29,38 @@ export function DeliveryForm() {
                 ])
             ]),
             jd.fieldset({ className: 'fieldset w-full' }, [
-                jd.legend({ className: 'fieldset-legend' }, ['Box weight (kg)']),
+                jd.legend({ className: 'fieldset-legend' }, ['Box weight (1-500kg)']),
                 jd.div({ className: 'flex flex-col' }, [
                     jd.input({
                         required: true,
                         className: 'input w-full validator',
-                        type: 'number',
+                        type: 'text',
                         name: 'weight',
                         id: 'weight',
                         placeholder: '10kg',
-                        min: '0',
-                        max: '500'
+                        oninput: e => {
+                            const value = parseFloat(e.target.value);
+
+                            if (isNaN(value)) {
+                                return e.target.setCustomValidity('Input must be a number');
+                            }
+
+                            if (value <= 0 || value > 500) {
+                                return e.target.setCustomValidity('Input must be between 0.01 and 500');
+                            }
+
+                            e.target.setCustomValidity('');
+                        },
+
+                        onchange: e => {
+                            const value = parseFloat(e.target.value);
+
+                            if (isNaN(value)) {
+                                return;
+                            }
+
+                            e.target.value = value.toString();
+                        }
                     }),
                     jd.div({ className: 'validator-hint hidden' }, ['Invalid weight!'])
                 ])
@@ -67,12 +90,52 @@ export function DeliveryForm() {
                 ])
             ]),
         ]),
-        jd.div({ className: 'border-base-content border-l' }),
-        jd.div({ className: 'w-full' }, [
+        //jd.div({ className: 'border-base-content border-l' }),
+        jd.div({ className: 'w-full flex flex-col gap-2' }, [
             jd.h1({ className: 'text-xl font-bold' }, ['Delivery details']),
 
+            jd.hr(),
+
+            jd.h2({ className: 'text-lg font-bold' }, ['Sender']),
+
             jd.fieldset({ className: 'fieldset w-full' }, [
-                jd.legend({ className: 'fieldset-legend' }, ['Recipient']),
+                jd.legend({ className: 'fieldset-legend' }, ['Name']),
+                jd.div({ className: 'flex flex-col' }, [
+                    jd.input({
+                        required: true,
+                        className: 'input w-full validator',
+                        name: 'sender',
+                        id: 'sender',
+                        placeholder: 'John Doe',
+                    }),
+                    jd.div({ className: 'validator-hint hidden' }, ['Invalid sender!'])
+                ])
+            ]),
+            jd.fieldset({ className: 'fieldset w-full' }, [
+                jd.legend({ className: 'fieldset-legend' }, ['Select sender cap and city']),
+                CapSelector({ postalCodeId: 'sender_cap', citySelectorId: 'sender_city' })
+            ]),
+
+            jd.fieldset({ className: 'fieldset w-full' }, [
+                jd.legend({ className: 'fieldset-legend' }, ['Address']),
+                jd.div({ className: 'flex flex-col' }, [
+                    jd.input({
+                        required: true,
+                        className: 'input w-full validator',
+                        name: 'sender_address',
+                        id: 'sender_address',
+                        placeholder: 'via Roma, 46A',
+                    }),
+                    jd.div({ className: 'validator-hint hidden' }, ['Invalid address!'])
+                ])
+            ]),
+
+            jd.h1({ className: 'text-xl font-bold' }, ['']),
+
+            jd.h2({ className: 'text-lg font-bold' }, ['Recipient']),
+
+            jd.fieldset({ className: 'fieldset w-full' }, [
+                jd.legend({ className: 'fieldset-legend' }, ['Name']),
                 jd.div({ className: 'flex flex-col' }, [
                     jd.input({
                         required: true,
@@ -85,22 +148,25 @@ export function DeliveryForm() {
                 ])
             ]),
             jd.fieldset({ className: 'fieldset w-full' }, [
-                jd.legend({ className: 'fieldset-legend' }, ['Box size']),
-                jd.select({
-                    className: 'select w-full',
-                    placeholder: 'Select size',
-                    id: 'size',
-                    name: 'size',
-                }, [
-                    jd.option({ default: 'true', value: 'small' }, ['Small']),
-                    jd.option({ value: 'medium' }, ['Medium']),
-                    jd.option({ value: 'large' }, ['Large']),
-                ]),
+                jd.legend({ className: 'fieldset-legend' }, ['Select sender cap and city']),
+                CapSelector({ postalCodeId: 'recipient_cap', citySelectorId: 'recipient_city' })
             ]),
+
             jd.fieldset({ className: 'fieldset w-full' }, [
-                jd.legend({ className: 'fieldset-legend' }, ['Select cap and city']),
-                CapSelector()
+                jd.legend({ className: 'fieldset-legend' }, ['Address']),
+                jd.div({ className: 'flex flex-col' }, [
+                    jd.input({
+                        required: true,
+                        className: 'input w-full validator',
+                        name: 'recipient_address',
+                        id: 'recipient_address',
+                        placeholder: 'via Roma, 46A',
+                    }),
+                    jd.div({ className: 'validator-hint hidden' }, ['Invalid address!'])
+                ])
             ]),
+        
+            jd.h1({ className: 'text-xl font-bold' }, ['']),
         ])
     ])
 }

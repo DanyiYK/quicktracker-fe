@@ -26,7 +26,7 @@ export function Header(data={}) {
     }
 
     return jd.fragment([
-        jd.header({ className: 'absolute w-full z-50 px-8 py-4 flex justify-between items-center bg-base-300 shadow-sm shadow-base-300' }, [
+        jd.header({ className: 'fixed w-full z-50 px-8 py-4 flex justify-between items-center bg-base-300 shadow-sm shadow-base-300' }, [
         jd.div({ className: 'flex justify-center items-center gap-4' }, [
         useDrawerButton?jd.button({ className: 'text-base-content hover:opacity-75 duration-150 lg:hidden', onclick: ()=>{document.querySelector('#drawer').checked=true} }, [jd.lucide('Menu', { size: 28 })]):null,
             jd.div({ className: 'text-2xl font-bold text-base-content' }, [
