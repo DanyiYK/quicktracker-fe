@@ -93,7 +93,6 @@ export function DeliveryPage(params) {
 
                 ])
             ]),
-            // jd.button({ className: 'btn hover:btn-error duration-150' }, ['Close delivery'])
         ])
     ])
 }
