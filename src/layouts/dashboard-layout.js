@@ -4,6 +4,8 @@ import { jd } from '../jd.config';
 import { CourierPage } from '../pages/courier-page';
 import { CouriersPage } from '../pages/couriers-page';
 import { CreateCourierPage } from '../pages/create-courier-page';
+import { CreateDeliveryPage } from '../pages/create-delivery-page';
+import { DeliveriesPage } from '../pages/deliveries-page';
 import { DeliveryPage } from '../pages/delivery-page';
 
 const RegisteredSections = [
@@ -24,7 +26,17 @@ const RegisteredSections = [
     },
     {
         name: 'delivery',
+        element: CreateDeliveryPage,
+        requires_id: false
+    },
+    {
+        name: 'delivery',
         element: DeliveryPage,
+        requires_id: true
+    },
+    {
+        name: 'deliveries',
+        element: DeliveriesPage,
         requires_id: false
     }
 ]

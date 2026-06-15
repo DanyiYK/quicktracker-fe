@@ -8,8 +8,8 @@ import { jd } from "../jd.config";
     large: { base: 8, height: 4, height: 6 }
 }*/
 
-export function DeliveryForm() {
-    return jd.form({ className: 'flex w-4xl mx-auto flex-col gap-8' }, [
+export function DeliveryForm({ onsubmit }) {
+    return jd.form({ className: 'flex w-4xl mx-auto flex-col gap-8', onsubmit: onsubmit }, [
         jd.div({ className: 'w-full flex flex-col gap-2' }, [
             jd.h1({ className: 'text-xl font-bold' }, ['Package details']),
 
@@ -165,8 +165,10 @@ export function DeliveryForm() {
                     jd.div({ className: 'validator-hint hidden' }, ['Invalid address!'])
                 ])
             ]),
-        
+
             jd.h1({ className: 'text-xl font-bold' }, ['']),
+
+            jd.button({ className: 'btn duration-150 hover:btn-primary w-lg mx-auto', type: 'submit' }, ['Create']),
         ])
     ])
 }
